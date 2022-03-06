@@ -1,4 +1,5 @@
 let count = 0
+
 let timerText = document.getElementById('counter')
 
 let increment = document.getElementById('plus')
@@ -7,13 +8,17 @@ let decrement = document.getElementById('minus')
 
 let heart = document.querySelector("#heart")
 
-let likes = document.querySelector('.likes')
-
 let numberOfTimes = {}
+
+let li
+
+let likes = document.querySelector('.likes')
 
 let pause = document.getElementById("pause")
 
 let form = document.getElementById('comment-form')
+
+
 
 
 intervalId = setInterval(() => {
@@ -32,22 +37,24 @@ decrement.addEventListener('click', () => {
 })
 
 heart.addEventListener('click', () => {
-    if (numberOfTimes[counter]){
-        numberOfTimes[counter] =  numberOfTimes[counter] + 1
+    if (numberOfTimes[count]){
+        numberOfTimes[count] =  numberOfTimes[count] + 1
     }
     else {
-        numberOfTimes[counter] = 1
+        numberOfTimes[count] = 1
     }
     listlikes()
 })
 
 function listlikes(){
-    // for in - create li - set inner html to key 
-
-    const li = document.createElement('li') 
-    li.innerText = `${count} has been liked ${numberOfTimes[counter]} time`
-    likes.appendChild(li)
-   
+    if (numberOfTimes[count] == 1){
+        li = document.createElement('li') 
+        li.innerText = `${count} has been liked ${numberOfTimes[count]} time`
+        likes.appendChild(li)
+    }
+    else {
+        li.innerText = `${count} has been liked ${numberOfTimes[count]} time`
+    }
 }
 
 pause.addEventListener('click', () => {
@@ -63,12 +70,12 @@ pause.addEventListener('click', () => {
       }
 })
    
-
 form.addEventListener('submit', (e) => {
     e.preventDefault()
     let p = document.createElement('p')
     p.textContent = e.target.comment.value
     document.querySelector('#list').appendChild(p)
+    form.reset()
 })
 
 
